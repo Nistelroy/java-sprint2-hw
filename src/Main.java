@@ -4,57 +4,27 @@ import java.util.Objects;
 import java.util.Scanner;
 
 public class Main {
-    private static ArrayList<MonthlyReport> monthlyReports;
+    private static ArrayList<MonthlyReport> monthlyReports = new ArrayList<>();
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
-
-    //    FileReader fileReader = new FileReader();
-
-        //fileName – имя файла в папке resources
-        //   ArrayList<String> lines = fileReader.readFileContents("m.202101.csv");
-
-    //    System.out.println(lines);
-     //   String[] lineContents = lines.get(1).split(",");
-     //   System.out.println(lineContents[0]);
-
-        //    String[] lineContents = line.split(",");
-
-
         while (true) {
-            // Вывод доступных пунктов меню в консоль
+
             printMenu();
-            int userInput = scanner.nextInt();
+
+          int userInput = scanner.nextInt();
             if (userInput == 1) {
                 System.out.println("За какой год считать все месячные отчёты ? ex.(2021)");
                 userInput = scanner.nextInt();
-                if (userInput == 2021) {
-                    monthlyReports = new ArrayList<>(12);
-                    ReportEngines reportEngines = new ReportEngines();
-                for (int i = 0; i < 12; i++) {
-                    if (i < 9) {
-                        monthlyReports.add(reportEngines.getMonthlyReport("m." + userInput + "0" + (i + 1) + ".csv"));
-                        monthlyReports.get(i).setNameOfMonth(getMonth(i));
-                        //   System.out.println(monthlyReport.lines);
-                    } else {
-                        monthlyReports.add(reportEngines.getMonthlyReport("m." + userInput + "0" + (i + 1) + ".csv"));
+                    if (userInput == 2021) {
+                    getMonthlyReports(userInput);
                     }
-                      if (monthlyReports.get(i).isExpense.isEmpty()) {
-                      monthlyReports.remove(i);
-                        break;
-                    }
-
-
-                }
-                    System.out.println("Готово!\n");
-                } else System.out.println("Нет отчётов за этот год\n");
-
+                    else System.out.println("Нет отчётов за этот год\n");
             }
 
-            else if (userInput == 2){
+            else if (userInput == 2) {
                 System.out.println("Считать годовой отчёт");
-            //    y.2021.csv
             }
 
             else if (userInput == 3) {
@@ -62,18 +32,7 @@ public class Main {
             }
 
             else if (userInput == 4) {
-
-            if (monthlyReports.isEmpty()) {
-                System.out.println("Сначала надо считать месячные отчёты\n");
-            } else {
-                for (int i = 0; i < monthlyReports.size(); i++) {
-                    System.out.println(monthlyReports.get(i).getNameOfMonth());
-                    System.out.println("Наибольшая прибыль : "+monthlyReports.get(i).getMostProfitProduct());
-                    System.out.println("Наибольшая трата   : "+monthlyReports.get(i).getMostWasteProduct());
-
-             //       System.out.println(monthlyReports.get(i).lines.size());
-                }
-            }
+                outputOfMonth();
             }
 
             else if (userInput == 5) {
@@ -81,19 +40,51 @@ public class Main {
             }
 
             else if (userInput == 6) {
-            System.out.println("Выйти");
                 scanner.close();
                 return;
             }
             else System.out.println("нет команды");
 
-
         }
     }
+
+    private static void outputOfMonth() {
+        if (monthlyReports.isEmpty()) {
+            System.out.println("Сначала надо считать месячные отчёты\n");
+        } else {
+            for (MonthlyReport monthlyReport : monthlyReports) {
+                System.out.println(monthlyReport.getNameOfMonth());
+                System.out.println("Наибольшая прибыль : " + monthlyReport.getMostProfitProduct());
+                System.out.println("Наибольшая трата   : " + monthlyReport.getMostWasteProduct());
+
+            }
+        }
+    }
+
+    private static void getMonthlyReports(int userInput) {
+        monthlyReports = new ArrayList<>(12);
+        ReportEngines reportEngines = new ReportEngines();
+        for (int i = 0; i < 12; i++) {
+            if (i < 9) {
+                monthlyReports.add(reportEngines.getMonthlyReport("m." + userInput + "0" + (i + 1) + ".csv"));
+                monthlyReports.get(i).setNameOfMonth(getMonth(i));
+            } else {
+                monthlyReports.add(reportEngines.getMonthlyReport("m." + userInput + "0" + (i + 1) + ".csv"));
+            }
+              if (monthlyReports.get(i).isExpense.isEmpty()) {
+              monthlyReports.remove(i);
+                break;
+            }
+
+
+        }
+        System.out.println("Готово!\n");
+    }
+
     private static void printMenu(){
         System.out.println("Выберите пункт меню и введите его номер:");
-        System.out.println("'1' -Считать все месячные отчёты");
-        System.out.println("'2' -Считать годовой отчёт");
+        System.out.println("'1' -Загрузить все месячные отчёты");
+        System.out.println("'2' -Загрузить годовой отчёт");
         System.out.println("'3' -Сверить отчёты");
         System.out.println("'4' -Вывести информацию обо всех месячных отчётах");
         System.out.println("'5' -Вывести информацию о годовом отчёте");
@@ -101,9 +92,9 @@ public class Main {
 
 
     }
-    private static String getMonth(int i) {
+    private static String getMonth(int nameMonth) {
         String[] nameOfMonths = {"Январь", "Февраль", "Март", "Апрель", "Май", "Июнь", "Июль", "Август", "Сентябрь", "Октябрь", "Ноябрь", "Декабрь"};
-        return nameOfMonths[i];
+        return nameOfMonths[nameMonth];
     }
 }
 
