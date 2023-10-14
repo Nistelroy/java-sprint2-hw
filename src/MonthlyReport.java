@@ -2,9 +2,12 @@ import java.util.ArrayList;
 
 public class MonthlyReport {
     ArrayList<String> lines;
+
     public MonthlyReport(String s) {
         FileReader fileReader = new FileReader();
         lines = fileReader.readFileContents(s);
+
+
 
     }
     //  название месяца;

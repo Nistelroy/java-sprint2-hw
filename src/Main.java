@@ -1,12 +1,14 @@
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Objects;
 import java.util.Scanner;
 
 public class Main {
+    private static ArrayList<MonthlyReport> monthlyReports;
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        ArrayList<MonthlyReport> monthlyReports;
+
 
     //    FileReader fileReader = new FileReader();
 
@@ -33,11 +35,13 @@ public class Main {
                     if (i < 9) {
                         MonthlyReport monthlyReport = new MonthlyReport("m." + userInput + "0" + (i + 1) +".csv");
                         monthlyReports.add(monthlyReport);
+                        System.out.println(monthlyReport.lines);
                     } else {
                         MonthlyReport monthlyReport = new MonthlyReport("m." + userInput + (i + 1) + ".csv");
                         monthlyReports.add(monthlyReport);
                     }
                     if (monthlyReports.get(i).lines.isEmpty()){
+                        monthlyReports.remove(i);
                         break;
                     }
                 }
@@ -60,7 +64,15 @@ public class Main {
             }
 
             else if (userInput == 4) {
-            System.out.println("Вывести информацию обо всех месячных отчётах");
+
+            if (monthlyReports.isEmpty()) {
+                System.out.println("Сначала надо считать месячные отчёты\n");
+            } else {
+                for (int i = 0; i < monthlyReports.size(); i++) {
+                    System.out.println(monthlyReports.get(i));
+                    System.out.println(monthlyReports.get(i).lines.size());
+                }
+            }
             }
 
             else if (userInput == 5) {
