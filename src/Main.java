@@ -12,10 +12,9 @@ import java.util.Scanner;
 public class Main {
     static ArrayList<MonthlyReport> monthlyReports = new ArrayList<>();
     static YearlyReport yearlyReport;
+    static Scanner scanner = new Scanner(System.in);
 
     public static void main(String[] args) {
-
-        Scanner scanner = new Scanner(System.in);
 
         while (true) {
 
@@ -23,11 +22,11 @@ public class Main {
         int userInput = scanner.nextInt();
 
             if (userInput == 1) {
-                loadMouths(scanner);
+                loadMouths();
             }
 
             else if (userInput == 2) {
-                loadYear(scanner);
+                loadYear();
             }
 
             else if (userInput == 3) {
@@ -52,7 +51,7 @@ public class Main {
         }
     }
 
-    private static void loadYear(Scanner scanner) {
+    private static void loadYear() {
         int userInput;
         System.out.println("За какой год загрузить годовой отчёт ? ex.(2021)");
         userInput = scanner.nextInt();
@@ -62,7 +61,7 @@ public class Main {
         else System.out.println("Нет отчётов за этот год\n");
     }
 
-    private static void loadMouths(Scanner scanner) {
+    private static void loadMouths() {
         int userInput;
         System.out.println("За какой год загрузить все месячные отчёты ? ex.(2021)");
         userInput = scanner.nextInt();
