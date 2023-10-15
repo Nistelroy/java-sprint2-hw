@@ -5,22 +5,16 @@ public class MonthlyReport {
     final ArrayList<String> itemName ;
     final ArrayList<Boolean> isExpense;
     final ArrayList<Integer> quantity;
-    final ArrayList<Integer> unit_price;
+    final ArrayList<Integer> unitPrice;
 
     private String nameOfMonth;
 
-    public MonthlyReport(ArrayList<String> itemName, ArrayList<Boolean> isExpense, ArrayList<Integer> quantity, ArrayList<Integer> unit_price) {
+    public MonthlyReport(ArrayList<String> itemName, ArrayList<Boolean> isExpense, ArrayList<Integer> quantity, ArrayList<Integer> unitPrice) {
         this.itemName = itemName;
         this.isExpense = isExpense;
         this.quantity = quantity;
-        this.unit_price = unit_price;
+        this.unitPrice = unitPrice;
     }
-
-
-    //  название месяца;
-   // самый прибыльный товар, название товара и сумму;
-   // самую большую трату, название товара и сумму.
-    //        🔥 Перед выполнением подсчётов необходимо проверить, что месячные отчёты были считаны из файла. В случае если этого сделано не было, нужно предложить сначала считать данные.
 
 
 
@@ -39,7 +33,7 @@ public class MonthlyReport {
 
         for (int i = 0; i < isExpense.size(); i++) {
             if (!(isExpense.get(i))) {
-                int profit = quantity.get(i) * unit_price.get(i);
+                int profit = quantity.get(i) * unitPrice.get(i);
                 if (profit > mostProfit) {
                     mostProfit = profit;
                     mostProfitName = itemName.get(i);
@@ -56,7 +50,7 @@ public class MonthlyReport {
         String mostWasteName = "";
         for (int i = 0; i < isExpense.size(); i++) {
             if (isExpense.get(i)) {
-                int waste = quantity.get(i)*unit_price.get(i);
+                int waste = quantity.get(i)* unitPrice.get(i);
                 if (waste>mostWaste) {
                     mostWaste = waste;
                     mostWasteName = itemName.get(i);
