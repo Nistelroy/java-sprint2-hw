@@ -23,34 +23,15 @@ public class Main {
         int userInput = scanner.nextInt();
 
             if (userInput == 1) {
-                System.out.println("За какой год загрузить все месячные отчёты ? ex.(2021)");
-                userInput = scanner.nextInt();
-                    if (userInput == 2021) {
-                        getMonthlyReports(userInput);
-                    }
-                    else System.out.println("Нет отчётов за этот год\n");
+                loadMouths(scanner);
             }
 
             else if (userInput == 2) {
-                System.out.println("За какой год загрузить годовой отчёт ? ex.(2021)");
-                userInput = scanner.nextInt();
-                    if (userInput == 2021) {
-                        getYearReport(userInput);
-                    }
-                    else System.out.println("Нет отчётов за этот год\n");
+                loadYear(scanner);
             }
 
             else if (userInput == 3) {
-                if (monthlyReports.isEmpty()) {
-                    System.out.println("Сначала надо загрузить в программу все отчёты\nОтчёт по месяцам не загружен\n");
-                }
-                else if (yearlyReport == null) {
-                    System.out.println("Сначала надо загрузить в программу все отчёты\nОтчёт за год не загружен\n");
-                }
-                else {
-                    MonthTotalPerYear monthTotalPerYear = new MonthTotalPerYear(monthlyReports,yearlyReport);
-                    monthTotalPerYear.getCollation();
-                }
+                outputCheckMonthPerYear();
             }
 
             else if (userInput == 4) {
@@ -58,14 +39,7 @@ public class Main {
             }
 
             else if (userInput == 5) {
-                if (yearlyReport == null) {
-                    System.out.println("Сначала надо загрузить в программу отчёт за год\n");
-                }
-                else {
-                System.out.println("\n"+"Отчётный год: "+yearlyReport.getYear());
-                yearlyReport.getProfitPerMonthReport();
-                yearlyReport.getAverageOperationPerYear();
-                }
+                outputOfYear();
             }
 
             else if (userInput == 6) {
@@ -75,6 +49,50 @@ public class Main {
 
             else System.out.println("Ошибка выбора пункта меню");
 
+        }
+    }
+
+    private static void loadYear(Scanner scanner) {
+        int userInput;
+        System.out.println("За какой год загрузить годовой отчёт ? ex.(2021)");
+        userInput = scanner.nextInt();
+        if (userInput == 2021) {
+            getYearReport(userInput);
+        }
+        else System.out.println("Нет отчётов за этот год\n");
+    }
+
+    private static void loadMouths(Scanner scanner) {
+        int userInput;
+        System.out.println("За какой год загрузить все месячные отчёты ? ex.(2021)");
+        userInput = scanner.nextInt();
+        if (userInput == 2021) {
+            getMonthlyReports(userInput);
+        }
+        else System.out.println("Нет отчётов за этот год\n");
+    }
+
+    private static void outputCheckMonthPerYear() {
+        if (monthlyReports.isEmpty()) {
+            System.out.println("Сначала надо загрузить в программу все отчёты\nОтчёт по месяцам не загружен\n");
+        }
+        else if (yearlyReport == null) {
+            System.out.println("Сначала надо загрузить в программу все отчёты\nОтчёт за год не загружен\n");
+        }
+        else {
+            MonthTotalPerYear monthTotalPerYear = new MonthTotalPerYear(monthlyReports,yearlyReport);
+            monthTotalPerYear.getCollation();
+        }
+    }
+
+    private static void outputOfYear() {
+        if (yearlyReport == null) {
+            System.out.println("Сначала надо загрузить в программу отчёт за год\n");
+        }
+        else {
+        System.out.println("\n"+"Отчётный год: "+yearlyReport.getYear());
+        yearlyReport.getProfitPerMonthReport();
+        yearlyReport.getAverageOperationPerYear();
         }
     }
 
