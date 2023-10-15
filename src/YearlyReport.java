@@ -28,7 +28,7 @@ public class YearlyReport {
                 profit -= unitPrice.get(j+i);
                 } else profit += unitPrice.get(j+i);
             }
-            System.out.println("Прибыль за "+Main.getMonth(Integer.parseInt(monthName.get(i))-1)+": "+profit);
+            System.out.println("Прибыль за "+(monthName.get(i))+": "+profit);
         }
 
     }

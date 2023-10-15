@@ -24,7 +24,7 @@ public class Transaction {
         if (!(lines.isEmpty())){
             for (int i = 1; i < lines.size(); i++) {
                 String[] lineContents = lines.get(i).split(",");
-                nameEntity.add(lineContents[0]);
+                nameEntity.add(Main.getMonth(Integer.parseInt(lineContents[0])-1));
                 unit_price.add(Integer.valueOf(lineContents[1]));
                 isExpense.add(Boolean.valueOf(lineContents[2]));
             }
