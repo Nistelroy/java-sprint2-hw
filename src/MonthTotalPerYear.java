@@ -15,6 +15,8 @@ public class MonthTotalPerYear {
         int noErrorsMonth = 0;
 
         for (int i = 0; i < monthlyReports.size(); i++) {
+
+
             int profitPerMonthFromMontRep = 0;
             int wastePerMonthFromMontRep = 0;
 
@@ -24,6 +26,8 @@ public class MonthTotalPerYear {
                 } else
                     profitPerMonthFromMontRep += monthlyReports.get(i).quantity.get(j) * monthlyReports.get(i).unitPrice.get(j);
             }
+
+
 
             int profitPerMonthFromYearRep = 0;
             int wastePerMonthFromYearRep = 0;
@@ -37,6 +41,8 @@ public class MonthTotalPerYear {
                 }
             }
 
+
+
             if (profitPerMonthFromMontRep != profitPerMonthFromYearRep) {
                 System.out.println("Обноружено расхождение в доходах за " +monthlyReports.get(i).getNameOfMonth());
             }
@@ -46,8 +52,10 @@ public class MonthTotalPerYear {
             else noErrorsMonth++;
         }
 
+
         if (noErrorsMonth == monthlyReports.size()) {
             System.out.println("\nСверка прошла успешно\n");
         }
+
     }
 }
