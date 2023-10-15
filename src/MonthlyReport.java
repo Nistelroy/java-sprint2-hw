@@ -1,12 +1,10 @@
 import java.util.ArrayList;
 
 public class MonthlyReport {
-
     final ArrayList<String> itemName ;
     final ArrayList<Boolean> isExpense;
     final ArrayList<Integer> quantity;
     final ArrayList<Integer> unitPrice;
-
     private String nameOfMonth;
 
     public MonthlyReport(ArrayList<String> itemName, ArrayList<Boolean> isExpense, ArrayList<Integer> quantity, ArrayList<Integer> unitPrice) {
@@ -16,8 +14,6 @@ public class MonthlyReport {
         this.unitPrice = unitPrice;
     }
 
-
-
     public String getNameOfMonth() {
         return nameOfMonth;
     }
@@ -25,7 +21,6 @@ public class MonthlyReport {
     public void setNameOfMonth(String nameOfMonth) {
         this.nameOfMonth = nameOfMonth;
     }
-
 
     public String getMostProfitProduct() {
         int mostProfit = 0;
@@ -44,7 +39,6 @@ public class MonthlyReport {
         return mostProfitName+". Сумма: "+mostProfit;
     }
 
-
     public String getMostWasteProduct() {
         int mostWaste = 0;
         String mostWasteName = "";
@@ -54,9 +48,9 @@ public class MonthlyReport {
                 if (waste>mostWaste) {
                     mostWaste = waste;
                     mostWasteName = itemName.get(i);
-               }
-             }
+                }
             }
+        }
         return mostWasteName+". Сумма: "+mostWaste+"\n";
     }
 }

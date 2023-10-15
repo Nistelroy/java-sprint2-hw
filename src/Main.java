@@ -46,7 +46,6 @@ public class Main {
                 yearlyReport.getProfitPerMonthReport();
                 yearlyReport.getAverageOperationPerYear();
 
-
             }
 
             else if (userInput == 6) {

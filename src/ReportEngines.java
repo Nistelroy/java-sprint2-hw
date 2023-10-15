@@ -2,28 +2,27 @@ import java.util.ArrayList;
 
 public class ReportEngines {
 
-
     public Object getReports(String s) {
+
+        FileReader fileReader = new FileReader();
+        Transaction transaction = new Transaction();
+
         char first = s.charAt(0);
 
         if (Character.toString(first).equals("m")) {
-        FileReader fileReader = new FileReader();
-        ArrayList<String> lines = fileReader.readFileContents(s);
-        Transaction transaction = new Transaction();
-        transaction.getTransfectionMonth(lines);
-
-       return new MonthlyReport(transaction.name,transaction.isExpense,transaction.quantity,transaction.unit_price);
-
-
-        } else if (Character.toString(first).equals("y")) {
-            FileReader fileReader = new FileReader();
             ArrayList<String> lines = fileReader.readFileContents(s);
-            Transaction transaction = new Transaction();
+            transaction.getTransfectionMonth(lines);
+
+          return new MonthlyReport(transaction.nameEntity,transaction.isExpense,transaction.quantity,transaction.unit_price);
+        }
+
+        else if (Character.toString(first).equals("y")) {
+            ArrayList<String> lines = fileReader.readFileContents(s);
             transaction.getTransfectionYear(lines);
 
-            return new YearlyReport(transaction.name,transaction.isExpense,transaction.unit_price);
-        }
-        System.out.println("Ошибка чтения отчёта");
-        return null;
+          return new YearlyReport(transaction.nameEntity,transaction.isExpense,transaction.unit_price);
+        } else
+            return null;
+
     }
 }
