@@ -107,7 +107,8 @@ public class Main {
                 monthlyReports.add((MonthlyReport) reportEngines.getReports("m." + userInput + "0" + (i + 1) + ".csv"));
                 monthlyReports.get(i).setNameOfMonth(getMonth(i));
             } else {
-                monthlyReports.add((MonthlyReport) reportEngines.getReports("m." + userInput + (i + 1) + ".csv"));
+                monthlyReports.add((MonthlyReport) reportEngines.getReports("m." + userInput +""+ (i + 1) + ".csv"));
+                monthlyReports.get(i).setNameOfMonth(getMonth(i));
             }
               if (monthlyReports.get(i).isExpense.isEmpty()) {
               monthlyReports.remove(i);
