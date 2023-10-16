@@ -6,9 +6,7 @@ public class Transaction {
     Integer quan;
     Integer unit;
 
-
     public Transaction( String name, Boolean isExp, Integer quan, Integer unit) {
-
         this.name = name;
         this.isExp = isExp;
         this.quan = quan;
@@ -20,7 +18,4 @@ public class Transaction {
         this.isExp = exp;
         this.unit = sum;
     }
-
-
-
 }

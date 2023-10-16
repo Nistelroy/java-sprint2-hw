@@ -2,6 +2,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class ReportEngines {
+
     static YearlyReport yearlyReport;
     static ArrayList<MonthlyReport> monthlyReports = new ArrayList<>();
     static Scanner scanner = new Scanner(System.in);
@@ -11,6 +12,7 @@ public class ReportEngines {
         System.out.println("За какой год загрузить все месячные отчёты ? ex.(2021)");
         userInput = scanner.nextInt();
         if (userInput == 2021) {
+
             monthlyReports = new ArrayList<>(12);
             ReportEngines reportEngines = new ReportEngines();
 
@@ -33,6 +35,7 @@ public class ReportEngines {
     }
 
     public void loadYear() {
+
         int userInput;
         System.out.println("За какой год загрузить годовой отчёт ? ex.(2021)");
         userInput = scanner.nextInt();
@@ -59,7 +62,6 @@ public class ReportEngines {
 
             }
         }
-
         return new MonthlyReport(transactArray);
     }
 
@@ -67,10 +69,11 @@ public class ReportEngines {
 
         FileReader fileReader = new FileReader();
 
-
         ArrayList<String> lines = fileReader.readFileContents(s);
+
         ReportEngines reportEngines = new ReportEngines();
         ArrayList<Transaction> transactArray = new ArrayList<>(lines.size());
+
         if (!(lines.isEmpty())){
             for (int i = 1; i < lines.size(); i++) {
                 String[] lineContents = lines.get(i).split(",");
@@ -79,7 +82,6 @@ public class ReportEngines {
                 transactArray.add(transaction);
             }
         }
-
         return new YearlyReport(transactArray);
     }
 

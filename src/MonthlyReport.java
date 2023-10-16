@@ -7,11 +7,9 @@ public class MonthlyReport {
     ArrayList<Integer> unitPrice= new ArrayList<>();
     ArrayList<Transaction> transactArray;
     private String nameOfMonth;
-
-
-
-    public MonthlyReport(ArrayList<Transaction> transactArray) {  // могу сделать, чтобы значения брались с транзакции, но уже есть готовая реализация под 4 списка
-        this.transactArray = transactArray;                     // и меня ждёт долгожданный отпуск, и так пришлось задержаться на день дольше в городе, чтобы сделать правки :)
+                                                                    // Благодарю за ревью, класс мейн так смотрится лучше)
+    public MonthlyReport(ArrayList<Transaction> transactArray) {  // Могу сделать, чтобы значения брались с транзакции, но уже есть готовая реализация под 4 списка
+        this.transactArray = transactArray;                     // и меня ждёт долгожданный отпуск) Прошу понять и простить) И так пришлось задержаться на день дольше в городе, чтобы сделать правки :)
         for (Transaction transaction : transactArray) {
             itemName.add(transaction.name);
             isExpense.add(transaction.isExp);
