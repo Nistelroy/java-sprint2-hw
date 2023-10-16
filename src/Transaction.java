@@ -20,11 +20,11 @@ public class Transaction {
     }
 
     public void getTransfectionYear(ArrayList<String> lines) {
-
+        ReportEngines reportEngines = new ReportEngines();
         if (!(lines.isEmpty())){
             for (int i = 1; i < lines.size(); i++) {
                 String[] lineContents = lines.get(i).split(",");
-                nameEntity.add(Main.getMonth(Integer.parseInt(lineContents[0])-1));
+                nameEntity.add(reportEngines.getMonth(Integer.parseInt(lineContents[0])-1));
                 unit_price.add(Integer.valueOf(lineContents[1]));
                 isExpense.add(Boolean.valueOf(lineContents[2]));
             }
