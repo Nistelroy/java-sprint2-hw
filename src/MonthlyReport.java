@@ -1,17 +1,23 @@
 import java.util.ArrayList;
 
 public class MonthlyReport {
-    final ArrayList<String> itemName ;
-    final ArrayList<Boolean> isExpense;
-    final ArrayList<Integer> quantity;
-    final ArrayList<Integer> unitPrice;
+    ArrayList<String> itemName = new ArrayList<>();
+    ArrayList<Boolean> isExpense= new ArrayList<>();
+    ArrayList<Integer> quantity= new ArrayList<>();
+    ArrayList<Integer> unitPrice= new ArrayList<>();
+    ArrayList<Transaction> transactArray;
     private String nameOfMonth;
 
-    public MonthlyReport(ArrayList<String> itemName, ArrayList<Boolean> isExpense, ArrayList<Integer> quantity, ArrayList<Integer> unitPrice) {
-        this.itemName = itemName;
-        this.isExpense = isExpense;
-        this.quantity = quantity;
-        this.unitPrice = unitPrice;
+
+
+    public MonthlyReport(ArrayList<Transaction> transactArray) {  // могу сделать, чтобы значения брались с транзакции, но уже есть готовая реализация под 4 списка
+        this.transactArray = transactArray;                     // и меня ждёт долгожданный отпуск, и так пришлось задержаться на день дольше в городе, чтобы сделать правки :)
+        for (Transaction transaction : transactArray) {
+            itemName.add(transaction.name);
+            isExpense.add(transaction.isExp);
+            quantity.add(transaction.quan);
+            unitPrice.add(transaction.unit);
+        }
     }
 
     public String getNameOfMonth() {

@@ -1,52 +1,57 @@
 import java.util.ArrayList;
 
 public class YearlyReport {
-    final ArrayList<String> monthName;
-    final ArrayList<Boolean> isExpense;
-    final ArrayList<Integer> unitPrice;
+    ArrayList<String> monthName = new ArrayList<>();
+    ArrayList<Boolean> isExpense = new ArrayList<>();
+    ArrayList<Integer> unitPrice = new ArrayList<>();
+    ArrayList<Transaction> transactArray;
     private int year;
 
-    public YearlyReport(ArrayList<String> monthName, ArrayList<Boolean> isExpense, ArrayList<Integer> unitPrice) {
-        this.monthName = monthName;
-        this.isExpense = isExpense;
-        this.unitPrice = unitPrice;
-    }
 
-    public void setYear(int year) {
-        this.year = year;
+    public YearlyReport(ArrayList<Transaction> transactArray) {
+        this.transactArray = transactArray;
+        for (Transaction transaction : transactArray) {
+            monthName.add(transaction.name);
+            isExpense.add(transaction.isExp);
+            unitPrice.add(transaction.unit);
+        }
     }
+         public void setYear(int year) {
+           this.year = year;
+         }
 
-    public int getYear() {
-        return year;
-    }
+  public int getYear() {
+             return year;
+         }
 
-    public void getProfitPerMonthReport() {
-        for (int i = 0; i < isExpense.size(); i+=2) {
-            int profit = 0;
-            for (int j = 0; j < 2; j++) {
-                if (isExpense.get(j+i)) {
-                profit -= unitPrice.get(j+i);
-                } else profit += unitPrice.get(j+i);
+        public void getProfitPerMonthReport () {
+            for (int i = 0; i < isExpense.size(); i += 2) {
+                int profit = 0;
+                for (int j = 0; j < 2; j++) {
+                    if (isExpense.get(j + i)) {
+                        profit -= unitPrice.get(j + i);
+                    } else profit += unitPrice.get(j + i);
+                }
+                System.out.println("Прибыль за " + (monthName.get(i)) + ": " + profit);
             }
-            System.out.println("Прибыль за "+(monthName.get(i))+": "+profit);
+
         }
 
-    }
 
+        public void getAverageOperationPerYear () {
 
-    public void getAverageOperationPerYear() {
+            int averageProfit = 0;
+            int averageWaste = 0;
 
-        int averageProfit = 0;
-        int averageWaste = 0;
-
-        for (int i = 0; i < isExpense.size(); i++) {
+            for (int i = 0; i < isExpense.size(); i++) {
                 if (isExpense.get(i)) {
                     averageWaste += unitPrice.get(i);
                 } else averageProfit += unitPrice.get(i);
+            }
+
+            System.out.println("\n" + "Средний расход за все имеющиеся операции в году: " + averageWaste / (isExpense.size() / 2));
+            System.out.println("Средний доход за все имеющиеся операции в году: " + averageProfit / (isExpense.size() / 2) + "\n");
+
         }
-
-        System.out.println("\n"+"Средний расход за все имеющиеся операции в году: "+ averageWaste/(isExpense.size()/2));
-        System.out.println("Средний доход за все имеющиеся операции в году: "+ averageProfit/(isExpense.size()/2)+"\n");
-
     }
-}
+

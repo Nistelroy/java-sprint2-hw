@@ -5,67 +5,31 @@ public class ReportEngines {
     static YearlyReport yearlyReport;
     static ArrayList<MonthlyReport> monthlyReports = new ArrayList<>();
     static Scanner scanner = new Scanner(System.in);
-    public Object getMReports(String s) {
-
-        FileReader fileReader = new FileReader();
-        Transaction transaction = new Transaction();
-
-
-        ArrayList<String> lines = fileReader.readFileContents(s);
-        transaction.getTransfectionMonth(lines);
-
-        return new MonthlyReport(transaction.nameEntity, transaction.isExpense, transaction.quantity, transaction.unit_price);
-    }
-    public Object getYReports(String s) {
-        FileReader fileReader = new FileReader();
-        Transaction transaction = new Transaction();
-
-        ArrayList<String> lines = fileReader.readFileContents(s);
-        transaction.getTransfectionYear(lines);
-
-        return new YearlyReport(transaction.nameEntity,transaction.isExpense,transaction.unit_price);
-
-
-    }
 
     public void loadMouths() {
         int userInput;
         System.out.println("За какой год загрузить все месячные отчёты ? ex.(2021)");
         userInput = scanner.nextInt();
         if (userInput == 2021) {
-            getMonthlyReports(userInput);
+            monthlyReports = new ArrayList<>(12);
+            ReportEngines reportEngines = new ReportEngines();
+
+            for (int i = 0; i < 12; i++) {
+                if (i < 9) {
+                    monthlyReports.add(reportEngines.getMReports("m." + userInput + "0" + (i + 1) + ".csv"));
+                    monthlyReports.get(i).setNameOfMonth(getMonth(i));
+                } else {
+                    monthlyReports.add(reportEngines.getMReports("m." + userInput +""+ (i + 1) + ".csv"));
+                    monthlyReports.get(i).setNameOfMonth(getMonth(i));
+                }
+                if (monthlyReports.get(i).isExpense.isEmpty()) {
+                    monthlyReports.remove(i);
+                    break;
+                }
+            }
+            System.out.println("Готово!\n");
         }
         else System.out.println("Нет отчётов за этот год\n");
-    }
-
-    public void getMonthlyReports(int userInput) {
-        monthlyReports = new ArrayList<>(12);
-        ReportEngines reportEngines = new ReportEngines();
-
-        for (int i = 0; i < 12; i++) {
-            if (i < 9) {
-                monthlyReports.add((MonthlyReport) reportEngines.getMReports("m." + userInput + "0" + (i + 1) + ".csv"));
-                monthlyReports.get(i).setNameOfMonth(getMonth(i));
-            } else {
-                monthlyReports.add((MonthlyReport) reportEngines.getMReports("m." + userInput +""+ (i + 1) + ".csv"));
-                monthlyReports.get(i).setNameOfMonth(getMonth(i));
-            }
-            if (monthlyReports.get(i).isExpense.isEmpty()) {
-                monthlyReports.remove(i);
-                break;
-            }
-        }
-        System.out.println("Готово!\n");
-    }
-    public String getMonth(int nameMonth) {
-        String[] nameOfMonths = {"Январь", "Февраль", "Март", "Апрель", "Май", "Июнь", "Июль", "Август", "Сентябрь", "Октябрь", "Ноябрь", "Декабрь"};
-        return nameOfMonths[nameMonth];
-    }
-    public void getYearReport(int userInput) {
-        ReportEngines reportEngines = new ReportEngines();
-        yearlyReport = (YearlyReport) reportEngines.getYReports("y." + userInput + ".csv");
-        yearlyReport.setYear(userInput);
-        System.out.println("Готово!\n");
     }
 
     public void loadYear() {
@@ -73,11 +37,51 @@ public class ReportEngines {
         System.out.println("За какой год загрузить годовой отчёт ? ex.(2021)");
         userInput = scanner.nextInt();
         if (userInput == 2021) {
-            getYearReport(userInput);
+            ReportEngines reportEngines = new ReportEngines();
+            yearlyReport = reportEngines.getYReports("y." + userInput + ".csv");
+            yearlyReport.setYear(userInput);
+            System.out.println("Готово!\n");
         }
         else System.out.println("Нет отчётов за этот год\n");
     }
 
+    public MonthlyReport getMReports(String s) {
+
+        FileReader fileReader = new FileReader();
+        ArrayList<String> lines = fileReader.readFileContents(s);
+        ArrayList<Transaction> transactArray = new ArrayList<>(lines.size());
+        if (!(lines.isEmpty())){
+            for (int i = 1; i < lines.size(); i++) {
+                String[] lineContents = lines.get(i).split(",");
+                Transaction transaction = new Transaction(lineContents[0],Boolean.valueOf(lineContents[1]),
+                Integer.valueOf(lineContents[2]),Integer.valueOf(lineContents[3]));
+                transactArray.add(transaction);
+
+            }
+        }
+
+        return new MonthlyReport(transactArray);
+    }
+
+    public YearlyReport getYReports(String s) {
+
+        FileReader fileReader = new FileReader();
+
+
+        ArrayList<String> lines = fileReader.readFileContents(s);
+        ReportEngines reportEngines = new ReportEngines();
+        ArrayList<Transaction> transactArray = new ArrayList<>(lines.size());
+        if (!(lines.isEmpty())){
+            for (int i = 1; i < lines.size(); i++) {
+                String[] lineContents = lines.get(i).split(",");
+                Transaction transaction = new Transaction(reportEngines.getMonth(Integer.parseInt(lineContents[0])-1),
+                        Integer.valueOf(lineContents[1]),Boolean.valueOf(lineContents[2]));
+                transactArray.add(transaction);
+            }
+        }
+
+        return new YearlyReport(transactArray);
+    }
 
     public void outputCheckMonthPerYear() {
         if (monthlyReports.isEmpty()) {
@@ -92,18 +96,6 @@ public class ReportEngines {
         }
     }
 
-    public void outputOfYear() {
-        if (yearlyReport == null) {
-            System.out.println("Сначала надо загрузить в программу отчёт за год\n");
-        }
-        else {
-            System.out.println("\n"+"Отчётный год: "+yearlyReport.getYear());
-            yearlyReport.getProfitPerMonthReport();
-            yearlyReport.getAverageOperationPerYear();
-        }
-    }
-
-
     public void outputOfMonth() {
         if (monthlyReports.isEmpty()) {
             System.out.println("Сначала надо загрузить в программу месячные отчёты\n");
@@ -115,6 +107,22 @@ public class ReportEngines {
 
             }
         }
+    }
+
+    public void outputOfYear() {
+        if (yearlyReport == null) {
+            System.out.println("Сначала надо загрузить в программу отчёт за год\n");
+        }
+        else {
+            System.out.println("\n"+"Отчётный год: "+yearlyReport.getYear());
+            yearlyReport.getProfitPerMonthReport();
+            yearlyReport.getAverageOperationPerYear();
+        }
+    }
+
+    public String getMonth(int nameMonth) {
+        String[] nameOfMonths = {"Январь", "Февраль", "Март", "Апрель", "Май", "Июнь", "Июль", "Август", "Сентябрь", "Октябрь", "Ноябрь", "Декабрь"};
+        return nameOfMonths[nameMonth];
     }
 
 }

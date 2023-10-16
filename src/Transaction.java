@@ -1,33 +1,26 @@
 import java.util.ArrayList;
 
 public class Transaction {
-    ArrayList<String> nameEntity = new ArrayList<>();
-    ArrayList<Boolean> isExpense = new ArrayList<>();
-    ArrayList<Integer> quantity = new ArrayList<>();
-    ArrayList<Integer> unit_price = new ArrayList<>();
+    String name;
+    Boolean isExp;
+    Integer quan;
+    Integer unit;
 
-    public void getTransfectionMonth(ArrayList<String> lines) {
 
-        if (!(lines.isEmpty())){
-            for (int i = 1; i < lines.size(); i++) {
-                 String[] lineContents = lines.get(i).split(",");
-                 nameEntity.add(lineContents[0]);
-                 isExpense.add(Boolean.valueOf(lineContents[1]));
-                 quantity.add(Integer.valueOf(lineContents[2]));
-                 unit_price.add(Integer.valueOf(lineContents[3]));
-            }
-        }
+    public Transaction( String name, Boolean isExp, Integer quan, Integer unit) {
+
+        this.name = name;
+        this.isExp = isExp;
+        this.quan = quan;
+        this.unit = unit;
     }
 
-    public void getTransfectionYear(ArrayList<String> lines) {
-        ReportEngines reportEngines = new ReportEngines();
-        if (!(lines.isEmpty())){
-            for (int i = 1; i < lines.size(); i++) {
-                String[] lineContents = lines.get(i).split(",");
-                nameEntity.add(reportEngines.getMonth(Integer.parseInt(lineContents[0])-1));
-                unit_price.add(Integer.valueOf(lineContents[1]));
-                isExpense.add(Boolean.valueOf(lineContents[2]));
-            }
-        }
+    public Transaction(String month, Integer sum, Boolean exp) {
+        this.name = month;
+        this.isExp = exp;
+        this.unit = sum;
     }
+
+
+
 }
