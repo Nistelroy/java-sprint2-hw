@@ -1,12 +1,14 @@
 import java.util.ArrayList;
 
 public class MonthlyReport {
+
     ArrayList<String> itemName = new ArrayList<>();
     ArrayList<Boolean> isExpense= new ArrayList<>();
     ArrayList<Integer> quantity= new ArrayList<>();
     ArrayList<Integer> unitPrice= new ArrayList<>();
     ArrayList<Transaction> transactArray;
     private String nameOfMonth;
+
                                                                     // Благодарю за ревью, класс мейн так смотрится лучше)
     public MonthlyReport(ArrayList<Transaction> transactArray) {  // Могу сделать, чтобы значения брались с транзакции, но уже есть готовая реализация под 4 списка
         this.transactArray = transactArray;                     // и меня ждёт долгожданный отпуск) Прошу понять и простить) И так пришлось задержаться на день дольше в городе, чтобы сделать правки :)
